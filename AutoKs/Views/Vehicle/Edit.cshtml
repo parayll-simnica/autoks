@@ -1,0 +1,368 @@
+﻿@model VehicleWithDetails
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<AutoKsUser> SignInManager
+@inject UserManager<AutoKsUser> UserManager
+
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Motor Services</title>
+    <meta name="description" content="">
+    <!--
+    Motor Template
+    http://www.templatemo.com/tm-463-motor
+    -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700' rel='stylesheet' type='text/css'>
+    <link href="~/lib/bootstrap/dist/Template/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/lib/bootstrap/dist/Template/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/lib/bootstrap/dist/Template/css/templatemo-style.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body class="services-page" style="background: black;">
+
+    <!-- Preloader -->
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+    </div>
+    <!-- End Preloader -->
+
+
+    <section class="container margin-bottom-50">
+        <center><h1 class="welcome-title-1">Edit Your Vehicle</h1></center>
+        <hr />
+
+        <form asp-action="Edit" >
+            <div class="row">
+
+
+                <div class="col col-xl-5" style="font-size: 20px; color: white;">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Brand" class="text-white"></label>
+                        <select asp-for="Brand" class="form-control" style="        background-color: #C8C8C8;
+        margin-top: 10px;
+        border-radius: 3px;
+        border: 1px solid #585858;
+        box-shadow: 3px 3px rgb(128 128 128);
+        height: 40px;" asp-items=@((IEnumerable<SelectListItem>) ViewData["Make"]) onchange="changeddl(this)">
+                            <option value="">Select Brand</option>
+                        </select>
+
+                        <span asp-validation-for="Brand" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Price" class="text-white"></label>
+                        <input asp-for="Price" class="form-control" style="        background-color: #C8C8C8;
+        margin-top: 10px;
+        border-radius: 3px;
+        border: 1px solid #585858;
+        box-shadow: 3px 3px rgb(128 128 128);
+        height: 40px;" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Color" class="text-white"></label>
+                        <input asp-for="Color" class="form-control" style="        background-color: #C8C8C8;
+        margin-top: 10px;
+        border-radius: 3px;
+        border: 1px solid #585858;
+        box-shadow: 3px 3px rgb(128 128 128);
+        height: 40px;" />
+                        <span asp-validation-for="Color" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Kilometers" class="text-white"></label>
+                        <input asp-for="Kilometers" class="form-control" style="        background-color: #C8C8C8;
+        margin-top: 10px;
+        border-radius: 3px;
+        border: 1px solid #585858;
+        box-shadow: 3px 3px rgb(128 128 128);
+        height: 40px;" />
+                        <span asp-validation-for="Kilometers" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Interior" class="text-white"></label>
+                        <input asp-for="Interior" class="form-control" style="        background-color: #C8C8C8;
+        margin-top: 10px;
+        border-radius: 3px;
+        border: 1px solid #585858;
+        box-shadow: 3px 3px rgb(128 128 128);
+        height: 40px;" />
+                        <span asp-validation-for="Interior" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="City" class="control-label"></label>
+                        <select asp-for="City" class="form-control" style="        background-color: #C8C8C8;
+        margin-top: 10px;
+        border-radius: 3px;
+        border: 1px solid #585858;
+        box-shadow: 3px 3px rgb(128 128 128);
+        height: 40px;">
+                            <option>Prishtine</option>
+                            <option>Podujeve</option>
+                            <option>Gjilan</option>
+                            <option>Prizren</option>
+                            <option>Peje</option>
+                            <option>Mitrovicë</option>
+                            <option>Ferizaj</option>
+                            <option>Gjakovë</option>
+                        </select>
+                        <span asp-validation-for="City" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Fuel" class="text-white"></label>
+
+                        <select asp-for="Fuel" class="form-control" style="        background-color: #C8C8C8;
+        margin-top: 10px;
+        border-radius: 3px;
+        border: 1px solid #585858;
+        box-shadow: 3px 3px rgb(128 128 128);
+        height: 40px;">
+
+                            <option>Gasoline</option>
+                            <option>Diesel</option>
+                            <option>Electric</option>
+                            <option>Electric/Gasoline</option>
+                            <option>Electric/Diesel</option>
+                        </select>
+                        <span asp-validation-for="Fuel" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 50px;">
+                        <label asp-for="Description" class="text-white"></label>
+                        <textarea asp-for="Description" class="form-control" style="height:10rem; margin-bottom: 30px;background-color: #C8C8C8;"></textarea>
+
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+
+
+                    <div class="form-group" style="margin:0px; font-size: 15px;">
+                        <a class="about-link" asp-action="Index" style="border: 0; font-size: 15px; ">Back to List</a>
+                        <input type="submit" value="Save Changes" class="about-link" style="border: 0;font-size: 15px; " />
+
+                    </div>
+                </div>
+                <div class="col col-xl-2"></div>
+
+                <div class="col col-xl-5" style="font-size: 20px; color: white;">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Model" class="text-white"></label>
+                        <select asp-for="Model" class="form-control" id="carmodel" style="        background-color: #C8C8C8;
+        margin-top: 10px;
+        border-radius: 3px;
+        border: 1px solid #585858;
+        box-shadow: 3px 3px rgb(128 128 128);
+        height: 40px;"></select>
+
+                        <span asp-validation-for="Model" class="text-danger"></span>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label asp-for="ProductionYear" class="text-white">Production Year</label>
+
+                        <select asp-for="ProductionYear" class="form-control" style="        background-color: #C8C8C8;
+        margin-top: 10px;
+        border-radius: 3px;
+        border: 1px solid #585858;
+        box-shadow: 3px 3px rgb(128 128 128);
+        height: 40px;">
+                            @for (int i = 0; i < 100; i++)
+                            {
+                                <option>@DateTime.Now.AddYears(-i).Year</option>
+                            };
+                        </select>
+                        <span asp-validation-for="ProductionYear" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label asp-for="CubicCapacity" class="text-white">Cubic Capacity</label>
+                        <input asp-for="CubicCapacity" class="form-control" style="        background-color: #C8C8C8;
+        margin-top: 10px;
+        border-radius: 3px;
+        border: 1px solid #585858;
+        box-shadow: 3px 3px rgb(128 128 128);
+        height: 40px;" />
+                        <span asp-validation-for="CubicCapacity" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Owners" class="text-white"></label>
+                        <input asp-for="Owners" class="form-control" style="        background-color: #C8C8C8;
+        margin-top: 10px;
+        border-radius: 3px;
+        border: 1px solid #585858;
+        box-shadow: 3px 3px rgb(128 128 128);
+        height: 40px;" />
+                        <span asp-validation-for="Owners" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="NumberOfDoors" class="text-white">Number Of Doors</label>
+                        <input asp-for="NumberOfDoors" class="form-control" style="        background-color: #C8C8C8;
+        margin-top: 10px;
+        border-radius: 3px;
+        border: 1px solid #585858;
+        box-shadow: 3px 3px rgb(128 128 128);
+        height: 40px;" />
+                        <span asp-validation-for="NumberOfDoors" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="NumberOfSeates" class="text-white">Number Of Seates</label>
+                        <input asp-for="NumberOfSeates" class="form-control" style="        background-color: #C8C8C8;
+        margin-top: 10px;
+        border-radius: 3px;
+        border: 1px solid #585858;
+        box-shadow: 3px 3px rgb(128 128 128);
+        height: 40px;" />
+                        <span asp-validation-for="NumberOfSeates" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ImageFile" class="text-white">Photo</label>
+                        <input asp-for="ImageFile" accept="image/*" style="        background-color: #C8C8C8;
+        margin-top: 10px;
+        border-radius: 3px;
+        border: 1px solid #585858;
+        box-shadow: 3px 3px rgb(128 128 128);
+        height: 40px;" />
+                        <span asp-validation-for="ImageFile" class="text-danger"></span>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary btn-md dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="height:60px;  padding:20px; margin-top: 20px; font-size: 20px; align-items:center;">
+                            More Details
+                        </button>
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2" style="        background-color: #C8C8C8; font-size: 18px; padding: 7px;">
+                            <div class=" form-check text-black">
+                                <label class="form-check-label" style="margin: 0;">
+                                    <input class="form-check-input" asp-for="IsManual" /> @Html.DisplayNameFor(model => model.IsManual)
+                                </label>
+                            </div>
+                            <div class="form-check text-black">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="IsUsed" /> @Html.DisplayNameFor(model => model.IsUsed)
+                                </label>
+                            </div>
+                            <div class=" form-check text-black">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="HasAirCondition" /> @Html.DisplayNameFor(model => model.HasAirCondition)
+                                </label>
+                            </div>
+                            <div class=" form-check text-black">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="HasElectricHeatedSeats" /> @Html.DisplayNameFor(model => model.HasElectricHeatedSeats)
+                                </label>
+                            </div>
+                            <div class=" form-check text-black">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="HasSportPackage" /> @Html.DisplayNameFor(model => model.HasSportPackage)
+                                </label>
+                            </div>
+                            <div class=" form-check text-black">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="HasPanoramaRoof" /> @Html.DisplayNameFor(model => model.HasPanoramaRoof)
+                                </label>
+                            </div>
+                            <div class="form-check text-black">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="HasCentralDoorLock" /> @Html.DisplayNameFor(model => model.HasCentralDoorLock)
+                                </label>
+                            </div>
+                            <div class=" form-check text-black">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="HasParkingSensors" /> @Html.DisplayNameFor(model => model.HasParkingSensors)
+                                </label>
+                            </div>
+                            <div class=" form-check text-black">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="HasParkingCamera" /> @Html.DisplayNameFor(model => model.HasParkingCamera)
+                                </label>
+                            </div>
+                            <div class=" form-check text-black">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="IsNonSmokingVehicle" /> @Html.DisplayNameFor(model => model.IsNonSmokingVehicle)
+                                </label>
+                            </div>
+                            <div class=" form-check text-black">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="IsRegistered" /> @Html.DisplayNameFor(model => model.IsRegistered)
+                                </label>
+                            </div>
+                            <div class=" form-check text-black">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="IsCustomDutyPaid" /> @Html.DisplayNameFor(model => model.IsCustomDutyPaid)
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+           
+        </form>
+    </section>
+
+
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }
+        <script>
+
+            function changeddlEdit(obj) {
+
+                var text = obj.options[obj.selectedIndex].text;
+                $.getJSON('/Vehicle/ModelList/' + text, function (data) {
+                    var items = '<option>Select Model</option>';
+                    $.each(data, function (i, state) {
+                        items += "<option value='" + state + "'>" + state + "</option>";
+                    });
+                    $('#carmodeledit').html(items);
+                });
+            }
+        </script>
+
+        <script type="text/javascript" src="~/lib/bootstrap/dist/Template/js/jquery-1.11.2.min.js"></script>      <!-- jQuery -->
+        <script type="text/javascript" src="~/lib/bootstrap/dist/Template/js/templatemo-script.js"></script>      <!-- Templatemo Script -->
+        <script defer src="~/lib/bootstrap/dist/Template/js/jquery.flexslider-min.js"></script><!-- FlexSlider -->
+        <script>
+            $(window).load(function () {
+                $('.flexslider').flexslider({
+                    animation: "slide",
+                    slideshow: false,
+                    prevText: "&#xf104;",
+                    nextText: "&#xf105;"
+                });
+
+                // Remove preloader
+                // https://ihatetomatoes.net/create-custom-preloading-screen/
+                $('body').addClass('loaded');
+            });
+        </script>
+</body>
+</html>

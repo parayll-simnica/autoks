@@ -1,0 +1,163 @@
+﻿
+
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<AutoKsUser> SignInManager
+@inject UserManager<AutoKsUser> UserManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head style="background-color:black;">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - AutoKs</title>
+
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+    <link href="~/lib/bootstrap/dist/Template/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/lib/bootstrap/dist/Template/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/lib/bootstrap/dist/Template/css/templatemo-style.css" rel="stylesheet">
+
+</head>
+<body style="background-color: black; width: 100%; position:absolute; top: 0;">
+    <div style="background-color: black;">
+        <section class="templatemo-top-section" style="background-color: black; width: 100%; color: black; background-image: url('https://images.pexels.com/photos/695644/pexels-photo-695644.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260');">
+            <div class="templatemo-header" style="background-color: black;">
+                <img class="templatemo-header-img" src="~/lib/bootstrap/dist/Template/img/header.png" alt="Header" style="background-color:black;">
+                <h1 class="templatemo-site-name">Auto Ks</h1>
+                <div class="mobile-menu-icon" style="background-color:black;">
+                    <i class="fa fa-bars"></i>
+                </div>
+                <div class="templatemo-nav-container" style="background-color:black;">
+                    <nav class="templatemo-nav" style="background-color:black;">
+                        <ul>
+                            <li> <a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                            <li><a asp-area="" asp-controller="Vehicle" asp-action="Index">Vehicles</a> </li>
+
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Post" asp-action="Index">Posts</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Profile</a>
+                                </li>
+                                <li class="nav-item">
+                                    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                        <button type="submit" class="nav-link btn btn-lg text-white ">Logout</button>
+                                    </form>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a asp-area="Identity" asp-page="/Account/Register">Register</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-area="Identity" asp-page="/Account/Login">Login</a>
+                                </li>
+                            }
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <form asp-controller="Vehicle" asp-action="Index" style="background-color:black;">
+                <div class="container h-100" style="background-color: black;">
+                    <div class="d-flex justify-content-center h-100" style="margin-top:8px;">
+                        <div class="searchbar">
+                            <input class="search_input" type="text" name="SearchString" placeholder="Search...">
+                            <button href="#" class="search_icon" type="submit"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+    <style>
+             .searchbar {
+                  margin-bottom: auto;
+                  margin-top: auto;
+                  height: 60px;
+                  background-color: #3d3d3d;
+                  border-radius: 30px;
+                  padding: 10px;
+                  width: 50%;
+              }
+
+              .search_input {
+                  color: white;
+                  border: 0;
+                  outline: 0;
+                  background: none;
+                  line-height: 40px;
+              }
+
+              .search_icon {
+                  height: 40px;
+                  width: 40px;
+                  float: right;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  border-radius: 50%;
+                  color: #e74c3c;
+                  text-decoration: none;
+              }
+          </style>
+    
+    <div class="main-content">
+        @RenderBody()
+    </div>
+
+    <!--Footer content-->
+    <footer class="tm-footer">
+        <div class="container">
+            <div class="row margin-bottom-60">
+                <nav class="col-lg-4 col-md-4 tm-footer-nav tm-footer-div">
+                    <h3 class="tm-footer-div-title" style="text-transform: capitalize;">Links</h3>
+                    <ul>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a asp-area="" asp-controller="Vehicle" asp-action="Index">Vehicles</a></li>
+                        @*<li><a asp-area="~/Areas/Identity/Account/Login.cshtml" asp-action="Index">Login</a></li>*@
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="services.html">Our Services</a></li>
+                    </ul>
+                </nav>
+                <div class="col-lg-4 col-md-4 tm-footer-div">
+                    <h3 class="tm-footer-div-title">Contact us</h3>
+                    @*<h3 class="tm-footer-div-title">About Us</h3>
+        <p class="margin-top-15">We are a team of young developers trying to achieve our goals in life!</p>*@
+                   
+                <ul>
+                    <li style="list-style:none; font-size:20px; margin-bottom:10px;"><i class="fas fa-phone"></i> 044-444-444</li>
+                    <li style="list-style:none; font-size:20px; margin-bottom:10px;"><i class="fa fa-envelope" aria-hidden="true"></i> info@autoks.com</li>
+                    <li style="list-style:none; font-size:20px; margin-bottom:10px;"><i class="fa fa-paper-plane" aria-hidden="true"></i> Pristina</li>
+                </ul>
+                </div>
+                <div class="col-lg-4 col-md-4 tm-footer-div">
+                    <h3 class="tm-footer-div-title">Get connected with us on social media</h3>
+                    @*<p>Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante.</p>*@
+                    <div class="tm-social-icons-container">
+                        <a href="https://www.facebook.com/" target="_blank" class="tm-social-icon"><i class="fa fa-facebook"></i></a>
+                        <a href="https://www.twitter.com/" target="_blank" class="tm-social-icon"><i class="fa fa-twitter"></i></a>
+                        <a href="https://www.linkedin.com/" target="_blank" class="tm-social-icon"><i class="fa fa-linkedin"></i></a>
+                        <a href="https://www.instagram.com/" target="_blank" class="tm-social-icon"><i class="fa fa-instagram"></i></a>
+                       
+                    </div>
+                </div>
+            </div>
+            <div class="row tm-copyright">
+                <p class="col-lg-12 small copyright-text text-center">Copyright &copy; 2021 AutoKs</p>
+            </div>
+        </div>
+
+    </footer> <!-- Footer content-->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

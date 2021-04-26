@@ -1,0 +1,467 @@
+﻿@model VehicleWithDetails
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<AutoKsUser> SignInManager
+@inject UserManager<AutoKsUser> UserManager
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Motor Gallery</title>
+    <meta name="description" content="">
+    <!--
+    Motor Template
+    http://www.templatemo.com/tm-463-motor
+    -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700' rel='stylesheet' type='text/css'>
+    <link href="~/lib/bootstrap/dist/Template/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/lib/bootstrap/dist/Template/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/lib/bootstrap/dist/Template/css/templatemo-style.css" rel="stylesheet">
+</head>
+
+<body class="gallery-page" style="background-color: black;">
+
+    <div class="row">
+        <div class="col-lg-7 col-md-7 col-sm-6 col-xs-12 text-right">
+            <h1 class=" @*text-center text-uppercase d-inline-block*@ welcome-title-1">@Html.DisplayFor(model => model.Brand) @Html.DisplayFor(model => model.Model)</h1>
+        </div>
+        <div class="col-lg-1 col-md-5 col-sm-6 col-xs-12">
+            <h2 class="welcome-title-1 ">@Html.DisplayFor(model => model.Price)€ </h2>
+        </div>
+    </div>
+
+    <section class="container margin-bottom-50">
+
+        <div class="row shadow">
+            <img class="card-img-top" src="@("~/img/" +Model.Photo)" asp-append-version="true" data-size="400x300" alt="Card image cap">
+        </div>
+    </section>
+
+    <!--Main content-->
+    <section class="container margin-bottom-50" style="position: center;">
+
+        <div class="row " style="max-width: 150%;">
+            <div class="tm-gallery col-xl-12 ">
+               
+                <div class="about-container" style="max-width: 97rem;border-radius: 5px;">
+                    
+                    <p class="card-text" style="margin: 3rem; font-size: 18px; "> @Html.DisplayFor(model => model.Description)</p>
+                </div>
+                @*<center>*@
+                <div>
+                    <div class="tm-item-container" style="        margin-right: 20px;
+        max-width: 30rem;
+        width: 350px;
+        background-color: #696969;
+        border-radius: 2px;
+        color: white;
+        font-size: 20px;
+        margin-bottom: 20px;">
+                        <div class="tm-item-price-container tm-gallery-item-info">
+                            <span class="tm-item-price">@Html.DisplayNameFor(model => model.Interior):</span>
+                            <span class="tm-item-price"> @Html.DisplayFor(model => model.Interior)</span>
+                        </div>
+                    </div>
+
+                    <div class="tm-item-container" style="        margin-right: 20px;
+        max-width: 30rem;
+        width: 350px;
+        background-color: #696969;
+        border-radius: 2px;
+        color: white;
+        font-size: 20px;
+        margin-bottom: 20px;">
+                        <div class="tm-item-price-container tm-gallery-item-info">
+                            <span class="tm-item-price">@Html.DisplayNameFor(model => model.Color): </span>
+                            <span class="tm-item-price"> @Html.DisplayFor(model => model.Color)</span>
+                        </div>
+                    </div>
+
+                    <div class="tm-item-container" style="        margin-right: 20px;
+        max-width: 30rem;
+        width: 350px;
+        background-color: #696969;
+        border-radius: 2px;
+        color: white;
+        font-size: 20px;
+        margin-bottom: 20px;">
+                        <div class="tm-item-price-container tm-gallery-item-info">
+                            <span class="tm-item-price">@Html.DisplayNameFor(model => model.ProductionYear): </span>
+                            <span class="tm-item-price"> @Html.DisplayFor(model => model.ProductionYear)</span>
+                        </div>
+                    </div>
+
+                    <div class="tm-item-container" style="        margin-right: 20px;
+        max-width: 30rem;
+        width: 350px;
+        background-color: #696969;
+        border-radius: 2px;
+        color: white;
+        font-size: 20px;
+        margin-bottom: 20px;">
+                        <div class="tm-item-price-container tm-gallery-item-info">
+                            <span class="tm-item-price">@Html.DisplayNameFor(model => model.Kilometers): </span>
+                            <span class="tm-item-price"> @Html.DisplayFor(model => model.Kilometers)</span>
+                        </div>
+                    </div>
+
+                    <div class="tm-item-container" style="        margin-right: 20px;
+        max-width: 30rem;
+        width: 350px;
+        background-color: #696969;
+        border-radius: 2px;
+        color: white;
+        font-size: 20px;
+        margin-bottom: 20px;">
+                        <div class="tm-item-price-container tm-gallery-item-info">
+                            <span class="tm-item-price">@Html.DisplayNameFor(model => model.City):</span>
+                            <span class="tm-item-price"> @Html.DisplayFor(model => model.City)</span>
+                        </div>
+                    </div>
+
+                    <div class="tm-item-container" style="        margin-right: 20px;
+        max-width: 30rem;
+        width: 350px;
+        background-color: #696969;
+        border-radius: 2px;
+        color: white;
+        font-size: 20px;
+        margin-bottom: 20px;">
+                        <div class="tm-item-price-container tm-gallery-item-info">
+                            <span class="tm-item-price">@Html.DisplayNameFor(model => model.CubicCapacity):</span>
+                            <span class="tm-item-price"> @Html.DisplayFor(model => model.CubicCapacity)</span>
+                        </div>
+                    </div>
+
+                    <div class="tm-item-container" style="        margin-right: 20px;
+        max-width: 30rem;
+        width: 350px;
+        background-color: #696969;
+        border-radius: 2px;
+        color: white;
+        font-size: 20px;
+        margin-bottom: 20px;">
+                        <div class="tm-item-price-container tm-gallery-item-info">
+                            <span class="tm-item-price">@Html.DisplayNameFor(model => model.IsManual): </span>
+                            <span class="tm-item-price"> @Html.DisplayFor(model => model.IsManual)</span>
+                        </div>
+                    </div>
+
+                    <div class="tm-item-container" style="        margin-right: 20px;
+        max-width: 30rem;
+        width: 350px;
+        background-color: #696969;
+        border-radius: 2px;
+        padding: 0;
+        color: white;
+        font-size: 18px;
+        margin-bottom: 20px;">
+                        <div class="tm-item-price-container tm-gallery-item-info" style="padding: 7px;">
+                            <span class="tm-item-price">@Html.DisplayNameFor(model => model.CostumerHasVisitedTheCar): </span>
+                            <span class="tm-item-price"> @Html.DisplayFor(model => model.CostumerHasVisitedTheCar)</span>
+
+                        </div>
+                    </div>
+                   
+                    <div class="tm-item-container" style="        margin-right: 20px;
+        max-width: 30rem;
+        background-color: #696969;
+        border-radius: 2px;
+        color: white;
+        font-size: 20px;
+        margin-bottom: 20px;
+        width: 350px;
+">
+                        <div class="tm-item-price-container tm-gallery-item-info">
+                            <span class="tm-item-price">@Html.DisplayNameFor(model => model.Brand): </span>
+                            <span class="tm-item-price"> @Html.DisplayFor(model => model.Brand)</span>
+                        </div>
+                    </div>
+
+                    <div class="tm-item-container" style="        margin-right: 20px;
+        max-width: 30rem;
+        width: 350px;
+        background-color: #696969;
+        border-radius: 2px;
+        color: white;
+        font-size: 20px;
+        margin-bottom: 20px;">
+                        <div class="tm-item-price-container tm-gallery-item-info">
+                            <span class="tm-item-price">@Html.DisplayNameFor(model => model.Price): </span>
+                            <span class="tm-item-price"> @Html.DisplayFor(model => model.Price)</span>
+                        </div>
+                    </div>
+
+                  
+                    <div class="tm-item-container" style="        margin-right: 20px;
+        max-width: 30rem;
+        width: 350px;
+        background-color: #696969;
+        border-radius: 2px;
+        color: white;
+        font-size: 20px;
+        margin-bottom: 20px;">
+                        <div class="tm-item-price-container tm-gallery-item-info">
+                            <span class="tm-item-price">@Html.DisplayNameFor(model => model.IsCustomDutyPaid): </span>
+                            <span class="tm-item-price" style=" font-size: 19px;"> @Html.DisplayFor(model => model.IsCustomDutyPaid)</span>
+                        </div>
+                    </div>
+
+                    <div class="tm-item-container" style="        margin-right: 20px;
+        max-width: 30rem;
+        width: 350px;
+        background-color: #696969;
+        border-radius: 2px;
+        color: white;
+        font-size: 20px;
+        margin-bottom: 20px;">
+                        <div class="tm-item-price-container tm-gallery-item-info">
+                            <span class="tm-item-price">@Html.DisplayNameFor(model => model.IsRegistered): </span>
+                            <span class="tm-item-price"> @Html.DisplayFor(model => model.IsRegistered)</span>
+                        </div>
+                    </div>
+
+                    <div class="tm-item-container" style="        margin-right: 20px;
+        max-width: 30rem;
+        width: 350px;
+        background-color: #696969;
+        border-radius: 2px;
+        color: white;
+        font-size: 20px;
+        margin-bottom: 20px;">
+                        <div class="tm-item-price-container tm-gallery-item-info">
+                            <span class="tm-item-price">@Html.DisplayNameFor(model => model.Price): </span>
+                            <span class="tm-item-price"> @Html.DisplayFor(model => model.Price)</span>
+                        </div>
+                    </div>
+
+                    <div class="tm-item-container" style="        margin-right: 20px;
+        max-width: 30rem;
+        width: 350px;
+        background-color: #696969;
+        border-radius: 2px;
+        color: white;
+        font-size: 20px;
+        margin-bottom: 20px;">
+                        <div class="tm-item-price-container tm-gallery-item-info">
+                            <span class="tm-item-price">@Html.DisplayNameFor(model => model.Owners): </span>
+                            <span class="tm-item-price"> @Html.DisplayFor(model => model.Owners)</span>
+                        </div>
+                    </div>
+
+                    <div class="tm-item-container" style="        margin-right: 20px;
+        max-width: 30rem;
+        width: 350px;
+        background-color: #696969;
+        border-radius: 2px;
+        color: white;
+        font-size: 20px;
+        margin-bottom: 20px;">
+                        <div class="tm-item-price-container tm-gallery-item-info">
+                            <span class="tm-item-price">@Html.DisplayNameFor(model => model.NumberOfDoors): </span>
+                            <span class="tm-item-price"> @Html.DisplayFor(model => model.NumberOfDoors)</span>
+                        </div>
+                    </div>
+
+                    <div class="tm-item-container" style="        margin-right: 20px;
+        max-width: 30rem;
+        width: 350px;
+        background-color: #696969;
+        border-radius: 2px;
+        color: white;
+        font-size: 20px;
+        margin-bottom: 20px;">
+                        <div class="tm-item-price-container tm-gallery-item-info">
+                            <span class="tm-item-price">@Html.DisplayNameFor(model => model.NumberOfSeates): </span>
+                            <span class="tm-item-price"> @Html.DisplayFor(model => model.NumberOfSeates)</span>
+                        </div>
+                    </div>
+
+                    <div class="tm-item-container" style="        margin-right: 20px;
+        max-width: 30rem;
+        width: 350px;
+        background-color: #696969;
+        border-radius: 2px;
+        color: white;
+        font-size: 20px;
+        margin-bottom: 20px;">
+                        <div class="tm-item-price-container tm-gallery-item-info">
+                            <span class="tm-item-price">@Html.DisplayNameFor(model => model.IsUsed): </span>
+                            <span class="tm-item-price"> @Html.DisplayFor(model => model.IsUsed)</span>
+                        </div>
+                    </div>
+
+                    <div class="tm-item-container" style="        margin-right: 20px;
+        max-width: 30rem;
+        width: 350px;
+        background-color: #696969;
+        border-radius: 2px;
+        color: white;
+        font-size: 20px;
+        margin-bottom: 20px;">
+                        <div class="tm-item-price-container tm-gallery-item-info">
+                            <span class="tm-item-price">@Html.DisplayNameFor(model => model.HasAirCondition): </span>
+                            <span class="tm-item-price"> @Html.DisplayFor(model => model.HasAirCondition)</span>
+                        </div>
+                    </div>
+
+                    <div class="tm-item-container" style="        margin-right: 20px;
+        max-width: 30rem;
+        width: 350px;
+        background-color: #696969;
+        border-radius: 2px;
+        color: white;
+        font-size: 20px;
+        margin-bottom: 20px;">
+                        <div class="tm-item-price-container tm-gallery-item-info">
+                            <span class="tm-item-price">@Html.DisplayNameFor(model => model.HasElectricHeatedSeats): </span>
+                            <span class="tm-item-price"> @Html.DisplayFor(model => model.HasElectricHeatedSeats)</span>
+                        </div>
+                    </div>
+
+                    <div class="tm-item-container" style="        margin-right: 20px;
+        max-width: 30rem;
+        width: 350px;
+        background-color: #696969;
+        border-radius: 2px;
+        color: white;
+        font-size: 20px;
+        margin-bottom: 20px;">
+                        <div class="tm-item-price-container tm-gallery-item-info">
+                            <span class="tm-item-price">@Html.DisplayNameFor(model => model.HasSportPackage): </span>
+                            <span class="tm-item-price"> @Html.DisplayFor(model => model.HasSportPackage)</span>
+                        </div>
+                    </div>
+
+                    <div class="tm-item-container" style="        margin-right: 20px;
+        max-width: 30rem;
+        width: 350px;
+        background-color: #696969;
+        border-radius: 2px;
+        color: white;
+        font-size: 20px;
+        margin-bottom: 20px;">
+                        <div class="tm-item-price-container tm-gallery-item-info">
+                            <span class="tm-item-price">@Html.DisplayNameFor(model => model.HasPanoramaRoof): </span>
+                            <span class="tm-item-price"> @Html.DisplayFor(model => model.HasPanoramaRoof)</span>
+                        </div>
+                    </div>
+
+                    <div class="tm-item-container" style="        margin-right: 20px;
+        max-width: 30rem;
+        width: 350px;
+        background-color: #696969;
+        border-radius: 2px;
+        color: white;
+        font-size: 20px;
+        margin-bottom: 20px;">
+                        <div class="tm-item-price-container tm-gallery-item-info">
+                            <span class="tm-item-price">@Html.DisplayNameFor(model => model.HasCentralDoorLock): </span>
+                            <span class="tm-item-price"> @Html.DisplayFor(model => model.HasCentralDoorLock)</span>
+                        </div>
+                    </div>
+
+                    <div class="tm-item-container" style="        margin-right: 20px;
+        max-width: 30rem;
+        width: 350px;
+        background-color: #696969;
+        border-radius: 2px;
+        color: white;
+        font-size: 20px;
+        margin-bottom: 20px;">
+                        <div class="tm-item-price-container tm-gallery-item-info">
+                            <span class="tm-item-price">@Html.DisplayNameFor(model => model.HasParkingSensors): </span>
+                            <span class="tm-item-price"> @Html.DisplayFor(model => model.HasParkingSensors)</span>
+                        </div>
+                    </div>
+
+                    <div class="tm-item-container" style="        margin-right: 20px;
+        max-width: 30rem;
+        width: 350px;
+        background-color: #696969;
+        border-radius: 2px;
+        color: white;
+        font-size: 20px;
+        margin-bottom: 20px;">
+                        <div class="tm-item-price-container tm-gallery-item-info">
+                            <span class="tm-item-price">@Html.DisplayNameFor(model => model.HasParkingCamera): </span>
+                            <span class="tm-item-price"> @Html.DisplayFor(model => model.HasParkingCamera)</span>
+                        </div>
+                    </div>
+
+                    <div class="tm-item-container" style="        margin-right: 20px;
+        max-width: 30rem;
+        width: 350px;
+        background-color: #696969;
+        border-radius: 2px;
+        color: white;
+        font-size: 20px;
+        margin-bottom: 20px;">
+                        <div class="tm-item-price-container tm-gallery-item-info">
+                            <span class="tm-item-price">@Html.DisplayNameFor(model => model.IsNonSmokingVehicle): </span>
+                            <span class="tm-item-price"> @Html.DisplayFor(model => model.IsNonSmokingVehicle)</span>
+                        </div>
+                    </div>
+
+                    <div class="tm-item-container" style="        margin-right: 20px;
+        max-width: 30rem;
+        width: 350px;
+        background-color: #696969;
+        border-radius: 2px;
+        color: white;
+        font-size: 20px;
+        margin-bottom: 20px;">
+                        <div class="tm-item-price-container tm-gallery-item-info">
+                            <span class="tm-item-price">@Html.DisplayNameFor(model => model.IsFavorite): </span>
+                            <span class="tm-item-price"> @Html.DisplayFor(model => model.IsFavorite)</span>
+                        </div>
+                    </div>
+
+                    <div class="tm-item-container" style="        margin-right: 20px;
+        max-width: 30rem;
+        width: 350px;
+        background-color: #696969;
+        border-radius: 2px;
+        color: white;
+        font-size: 20px;
+        margin-bottom: 20px;">
+                        <div class="tm-item-price-container tm-gallery-item-info">
+                            <span class="tm-item-price">@Html.DisplayNameFor(model => model.IsActive): </span>
+                            <span class="tm-item-price"> @Html.DisplayFor(model => model.IsActive)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    @*</center>*@
+        <div class="form-group">
+            <a class="about-link" style="border: 0;" asp-action="Index">Back to List</a>
+        </div>
+
+        <!--banner-->
+        <div class="tm-banner">
+            <h2 class="tm-banner-title" style="color:red">Turbo Servis</h2>
+            <p class="tm-banner-description">Pasion per Performanc</p>
+            <a href="#" class="tm-banner-link"><i class="fa fa-play"></i></a>
+        </div>
+
+    </section> <!-- Main content -->
+
+    <!-- JS -->
+    <script type="text/javascript" src="~/lib/bootstrap/dist/Template/js/jquery-1.11.2.min.js"></script>      <!-- jQuery -->
+    <script type="text/javascript" src="~/lib/bootstrap/dist/Template/js/templatemo-script.js"></script>      <!-- Templatemo Script -->
+    <script defer src="~/lib/bootstrap/dist/Template/js/jquery.flexslider-min.js"></script><!-- FlexSlider -->
+</body>
+</html>
+

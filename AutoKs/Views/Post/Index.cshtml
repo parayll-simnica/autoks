@@ -1,0 +1,72 @@
+﻿@model IEnumerable<AutoKs.Models.Vehicle>
+@using System.Security.Claims;
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/css/site.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+<link href="~/lib/bootstrap/dist/Template/css/bootstrap.min.css" rel="stylesheet">
+<link href="~/lib/bootstrap/dist/Template/css/font-awesome.min.css" rel="stylesheet">
+<link href="~/lib/bootstrap/dist/Template/css/templatemo-style.css" rel="stylesheet">
+
+@if (@ViewContext.RouteData.Values["action"].ToString() == "Favorites")
+{
+    <center><h1 class="welcome-title-1">My Favorites</h1></center>
+    
+    <p>
+        <center><a class="about-link" asp-action="Index" asp-controller="Post" style="border-left-width: 0;margin-left:-700px;">My Posts</a></center>
+    </p>
+
+}
+else
+{
+    <center><h1 class="welcome-title-1">My Posts</h1></center>
+    <hr/>
+    <p>
+        <center> <a class="about-link" asp-action="Favorites" asp-controller="Post" style="border: 0; border-radius: 5px; margin-bottom: 30px; ">My Favorites Posts</a></center>
+    </p>
+}
+
+<center>
+    <body>
+        @foreach (var item in Model)
+        {
+            <div class="about-container shadow" style="width: 60%;
+        justify-items: center;
+        background-color: #C8C8C8;">
+                <div class="about-container-left">
+                    <img class="card-img-top" src="@("~/img/" +item.Photo)" asp-append-version="true" data-size="400x300" alt="Card image cap">
+                </div>
+                <div class="about-container-right">
+                    <h2 class="about-title"> @Html.DisplayFor(modelItem => item.Brand)  @Html.DisplayFor(modelItem => item.Model) </h2>
+                    <p class="about-description">
+                        @Html.DisplayNameFor(model => model.Price) : @Html.DisplayFor(modelItem => item.Price) €<br />
+                        @Html.DisplayNameFor(model => model.ProductionYear) :  @Html.DisplayFor(modelItem => item.ProductionYear)<br />
+                        @Html.DisplayNameFor(model => model.Kilometers) : @Html.DisplayFor(modelItem => item.Kilometers) Km<br />
+                        @Html.DisplayNameFor(model => model.City) :  @Html.DisplayFor(modelItem => item.City) <br />
+                        @Html.DisplayNameFor(model => model.Fuel) :  @Html.DisplayFor(modelItem => item.Fuel) <br />
+                        @Html.DisplayNameFor(model => model.CubicCapacity) : @Html.DisplayFor(modelItem => item.CubicCapacity)cc
+                    </p>
+                    <a asp-action="Details" asp-controller="Vehicle" asp-route-id="@item.Id" class="about-link" style="border: 0; justify-content: center; font-size: 18px; border-radius: 3px;">Details </a>
+                    <a asp-action="Edit" asp-controller="Vehicle" asp-route-id="@item.Id" class="about-link" style="border: 0; justify-content: center; font-size: 18px; border-radius: 3px;">Edit </a>
+                    <a asp-action="Delete" asp-controller="Vehicle" asp-route-id="@item.Id" class="about-link" style="border: 0; justify-content: center; font-size: 18px; border-radius: 3px;">Delete </a>
+                    <form asp-action="DeleteFavorite" asp-controller="Vehicle" asp-route-id="@item.Id">
+                        @*<input type="hidden" asp-for="Id" />*@
+                        <button class="search_icon" type="submit" style="margin: 10px"><i class="fa fa-star"></i></button>
+                    </form>
+                </div>
+            </div>
+        }
+    </body>
+</center>
+
+
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

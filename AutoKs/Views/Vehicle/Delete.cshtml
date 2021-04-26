@@ -1,0 +1,163 @@
+﻿@model AutoKs.Models.Vehicle
+
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<AutoKsUser> SignInManager
+@inject UserManager<AutoKsUser> UserManager
+
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Motor Gallery</title>
+    <meta name="description" content="">
+    <!--
+    Motor Template
+    http://www.templatemo.com/tm-463-motor
+    -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700' rel='stylesheet' type='text/css'>
+    <link href="~/lib/bootstrap/dist/Template/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/lib/bootstrap/dist/Template/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/lib/bootstrap/dist/Template/css/templatemo-style.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body class="gallery-page">
+    <div class="row">
+        <div  style="text-align: center;">
+            <h3 class="@*text-center text-uppercase d-inline-block*@ welcome-title-1  " style="font-size:25px; text-align: center">Are you sure you want to delete @Html.DisplayFor(model => model.Brand) @Html.DisplayFor(model => model.Model) ? </h3>
+        </div>
+    </div>
+
+    <section class="container margin-bottom-50">
+
+        <div class="row shadow">
+            <img class="card-img-top" src="@("~/img/" +Model.Photo)" asp-append-version="true" data-size="400x300" alt="Card image cap">
+        </div>
+    </section>
+    @*dd*@
+    <!--Main content-->
+<section class="container margin-bottom-50" style="position:center;">
+
+    <div class="row ">
+
+        <div class="about-container" style=" max-width: 95rem;border-radius: 5px;">
+            <p class="card-text" style=" margin: 3rem;font-size: 18px;"> @Html.DisplayFor(model => model.Description)</p>
+        </div>
+
+        <div class="tm-item-container" style="        margin-right: 20px;
+        max-width: 30rem;
+        width: 350px;
+        background-color: #696969;
+        border-radius: 2px;
+        color: white;
+        font-size: 20px;
+        margin-bottom: 20px;">
+            <div class="tm-item-price-container tm-gallery-item-info">
+                <span class="tm-item-price">@Html.DisplayNameFor(model => model.ProductionYear): </span>
+                <span class="tm-item-price"> @Html.DisplayFor(model => model.ProductionYear)</span>
+            </div>
+        </div>
+        <div class="tm-item-container" style="        margin-right: 20px;
+        max-width: 30rem;
+        width: 350px;
+        background-color: #696969;
+        border-radius: 2px;
+        color: white;
+        font-size: 20px;
+        margin-bottom: 20px;">
+            <div class="tm-item-price-container tm-gallery-item-info">
+                <span class="tm-item-price">@Html.DisplayNameFor(model => model.Kilometers): </span>
+                <span class="tm-item-price"> @Html.DisplayFor(model => model.Kilometers)</span>
+            </div>
+        </div>
+        <div class="tm-item-container" style="        margin-right: 20px;
+        max-width: 30rem;
+        width: 350px;
+        background-color: #696969;
+        border-radius: 2px;
+        color: white;
+        font-size: 20px;
+        margin-bottom: 20px;">
+            <div class="tm-item-price-container tm-gallery-item-info">
+                <span class="tm-item-price">@Html.DisplayNameFor(model => model.City):</span>
+                <span class="tm-item-price"> @Html.DisplayFor(model => model.City)</span>
+            </div>
+        </div>
+        <div class="tm-item-container" style="        margin-right: 20px;
+        max-width: 30rem;
+        width: 350px;
+        background-color: #696969;
+        border-radius: 2px;
+        color: white;
+        font-size: 20px;
+        margin-bottom: 20px;">
+            <div class="tm-item-price-container tm-gallery-item-info">
+                <span class="tm-item-price">@Html.DisplayNameFor(model => model.CubicCapacity):</span>
+                <span class="tm-item-price"> @Html.DisplayFor(model => model.CubicCapacity)</span>
+            </div>
+        </div>
+        <div class="tm-item-container" style="        margin-right: 20px;
+        max-width: 30rem;
+        width: 350px;
+        background-color: #696969;
+        border-radius: 2px;
+        color: white;
+        font-size: 20px;
+        margin-bottom: 20px;">
+            <div class="tm-item-price-container tm-gallery-item-info">
+                <span class="tm-item-price">@Html.DisplayNameFor(model => model.IsManual): </span>
+                <span class="tm-item-price"> @Html.DisplayFor(model => model.IsManual)</span>
+            </div>
+        </div>
+        <div class="tm-item-container" style="        margin-right: 20px;
+        max-width: 30rem;
+        width: 350px;
+        background-color: #696969;
+        border-radius: 2px;
+        padding: 0;
+        color: white;
+        font-size: 18px;
+        margin-bottom: 20px;">
+            <div class="tm-item-price-container tm-gallery-item-info">
+                <span class="tm-item-price">@Html.DisplayNameFor(model => model.CostumerHasVisitedTheCar): </span>
+                <span class="tm-item-price"> @Html.DisplayFor(model => model.CostumerHasVisitedTheCar)</span>
+
+            </div>
+        </div>
+    </div>
+    <form asp-action="Delete" style="margin: 0px;">
+
+        <div class="form-group" >
+            <a class="about-link" asp-action="Index" style="border-left-width: 0; margin: 20px;">Back to List</a>
+            <input type="submit" value="Delete" class="about-link" style="border-width: 0" />
+        </div>
+    </form>
+   
+    <!--banner-->
+    <div class="tm-banner">
+        <h2 class="tm-banner-title" style="color:red">Turbo Servis</h2>
+        <p class="tm-banner-description">Pasion per Performanc</p>
+        <a href="#" class="tm-banner-link"><i class="fa fa-play"></i></a>
+    </div>
+</section> <!-- Main content -->
+    <!--Footer content-->
+    <!-- JS -->
+    <script type="text/javascript" src="~/lib/bootstrap/dist/Template/js/jquery-1.11.2.min.js"></script>      <!-- jQuery -->
+    <script type="text/javascript" src="~/lib/bootstrap/dist/Template/js/templatemo-script.js"></script>      <!-- Templatemo Script -->
+    <script defer src="~/lib/bootstrap/dist/Template/js/jquery.flexslider-min.js"></script><!-- FlexSlider -->
+</body>
+</html>

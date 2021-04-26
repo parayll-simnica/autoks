@@ -1,0 +1,8 @@
+﻿form-control {
+    background-color: white;
+    margin-top: 10px;
+    border-radius: 3px;
+    border: 1px solid black;
+    box-shadow: 3px 3px rgb(128 128 128);
+    height: 40px;
+}
