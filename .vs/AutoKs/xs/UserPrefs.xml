@@ -1,0 +1,25 @@
+﻿<Properties StartupConfiguration="{0FC3F7C4-8D43-43A6-A825-B6A3BF80B612}|Default">
+  <MonoDevelop.Ide.ItemProperties.AutoKs PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="AutoKs/appsettings.json">
+    <Files>
+      <File FileName="AutoKs/appsettings.json" Line="3" Column="6" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="AutoKs" expanded="True">
+            <Node name="AutoKs" expanded="True">
+              <Node name="appsettings.json" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
